@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>교육용 AI 도구 종합 가이드</title>
+    <style>
+        /* CSS 코드가 여기에 들어갑니다 */
+        :root {
+         /* Colors */
+         --color-background: rgba(252, 252, 249, 1);
+         --color-surface: rgba(255, 255, 253, 1);
+         --color-text: rgba(19, 52, 59, 1);
+         --color-text-secondary: rgba(98, 108, 113, 1);
+         --color-primary: rgba(33, 128, 141, 1);
+         --color-primary-hover: rgba(29, 116, 128, 1);
+         --color-primary-active: rgba(26, 104, 115, 1);
+         --color-secondary: rgba(94, 82, 64, 0.12);
+         --color-secondary-hover: rgba(94, 82, 64, 0.2);
+         --color-secondary-active: rgba(94, 82, 64, 0.25);
+         --color-border: rgba(94, 82, 64, 0.2);
+         --color-btn-primary-text: rgba(252, 252, 249, 1);
+         --color-card-border: rgba(94, 82, 64, 0.12);
+         --color-card-border-inner: rgba(94, 82, 64, 0.12);
+         --color-error: rgba(192, 21, 47, 1);
+         --color-success: rgba(33, 128, 141, 1);
+         --color-warning: rgba(168, 75, 47, 1);
+         --color-info: rgba(98, 108, 113, 1);
+         --color-focus-ring: rgba(33, 128, 141, 0.4);
+         --color-select-caret: rgba(19, 52, 59, 0.8);
+
+         /* Common style patterns */
+         --focus-ring: 0 0 0 3px var(--color-focus-ring);
+         --focus-outline: 2px solid var(--color-primary);
+         --status-bg-opacity: 0.15;
+         --status-border-opacity: 0.25;
+         --select-caret-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23134252' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+         --select-caret-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23f5f5f5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+
+         /* RGB versions for opacity control */
+         --color-success-rgb: 33, 128, 141;
+         --color-error-rgb: 192, 21, 47;
+         --color-warning-rgb: 168, 75, 47;
+         --color-info-rgb: 98, 108, 113;
+
+         /* Typography */
+         --font-family-base: "FKGroteskNeue", "Geist", "Inter", -apple-system,
+           BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+         --font-family-mono: "Berkeley Mono", ui-monospace, SFMono-Regular, Menlo,
+           Monaco, Consolas, monospace;
+         --font-size-xs: 11px;
+         --font-size-sm: 12px;
+         --font-size-base: 14px;
+         --font-size-md: 14px;
+         --font-size-lg: 16px;
+         --font-size-xl: 18px;
+         --font-size-2xl: 20px;
+         --font-size-3xl: 24px;
+         --font-size-4xl: 30px;
+         --font-weight-normal: 400;
+         --font-weight-medium: 500;
+         --font-weight-semibold: 550;
+         --font-weight-bold: 600;
+         --line-height-tight: 1.2;
+         --line-height-normal: 1.5;
+         --letter-spacing-tight: -0.01em;
+
+         /* Spacing */
+         --space-0: 0;
+         --space-1: 1px;
+         --space-2: 2px;
+         --space-4: 4px;
+         --space-6: 6px;
+         --space-8: 8px;
+         --space-10: 10px;
+         --space-12: 12px;
+         --space-16: 16px;
+         --space-20: 20px;
+         --space-24: 24px;
+         --space-32: 32px;
+
+         /* Border Radius */
+         --radius-sm: 6px;
+         --radius-base: 8px;
+         --radius-md: 10px;
+         --radius-lg: 12px;
+         --radius-full: 9999px;
+
+         /* Shadows */
+         --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.02);
+         --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+         --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04),
+           0 2px 4px -1px rgba(0, 0, 0, 0.02);
+         --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.04),
+           0 4px 6px -2px rgba(0, 0, 0, 0.02);
+         --shadow-inset-sm: inset 0 1px 0 rgba(255, 255, 255, 0.15),
+           inset 0 -1px 0 rgba(0, 0, 0, 0.03);
+
+         /* Animation */
+         --duration-fast: 150ms;
+         --duration-normal: 250ms;
+         --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+
+         /* Layout */
+         --container-sm: 640px;
+         --container-md: 768px;
+         --container-lg: 1024px;
+         --container-xl: 1280px;
+        }
+        
+        /* Dark mode colors */
+        @media (prefers-color-scheme: dark) {
+         :root {
+           --color-background: rgba(31, 33, 33, 1);
+           --color-surface: rgba(38, 40, 40, 1);
+           --color-text: rgba(245, 245, 245, 1);
+           --color-text-secondary: rgba(167, 169, 169, 0.7);
+           --color-primary: rgba(50, 184, 198, 1);
+           --color-primary-hover: rgba(45, 166, 178, 1);
+           --color-primary-active: rgba(41, 150, 161, 1);
+           --color-secondary: rgba(119, 124, 124, 0.15);
+           --color-secondary-hover: rgba(119, 124, 124, 0.25);
+           --color-secondary-active: rgba(119, 124, 124, 0.3);
+           --color-border: rgba(119, 124, 124, 0.3);
+           --color-error: rgba(255, 84, 89, 1);
+           --color-success: rgba(50, 184, 198, 1);
+           --color-warning: rgba(230, 129, 97, 1);
+           --color-info: rgba(167, 169, 169, 1);
+           --color-focus-ring: rgba(50, 184, 198, 0.4);
+           --color-btn-primary-text: rgba(19, 52, 59, 1);
+           --color-card-border: rgba(119, 124, 124, 0.2);
+           --color-card-border-inner: rgba(119, 124, 124, 0.15);
+           --shadow-inset-sm: inset 0 1px 0 rgba(255, 255, 255, 0.1),
+             inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+           --button-border-secondary: rgba(119, 124, 124, 0.2);
+           --color-border-secondary: rgba(119, 124, 124, 0.2);
+           --color-select-caret: rgba(245, 245, 245, 0.8);
+           --color-success-rgb: 50, 184, 198;
+           --color-error-rgb: 255, 84, 89;
+           --color-warning-rgb: 230, 129, 97;
+           --color-info-rgb: 167, 169, 169;
+         }
+        }
+        
+        html {
+         scroll-behavior: smooth;
+        }
+
+        body {
+         margin: 0;
+         padding-top: 70px; /* 헤더 높이만큼 패딩 추가 */
+         background-color: var(--color-background);
+         font-family: var(--font-family-base);
+         color: var(--color-text);
+         line-height: var(--line-height-normal);
+        }
+
+        .container {
+         max-width: var(--container-lg);
+         margin: 0 auto;
+         padding: 0 var(--space-16);
+        }
+
+        /* Header */
+        .header {
+         position: fixed;
+         top: 0;
+         left: 0;
+         width: 100%;
+         background-color: rgba(255, 255, 253, 0.8);
+         backdrop-filter: blur(10px);
+         border-bottom: 1px solid var(--color-border);
+         z-index: 1000;
+         transition: background-color 0.3s;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .header {
+                background-color: rgba(38, 40, 40, 0.8);
+            }
+        }
+
+        .nav {
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         height: 70px;
+        }
+
+        .nav__brand h3 {
+         margin: 0;
+         color: var(--color-primary);
+        }
+
+        .nav__list {
+         display: flex;
+         list-style: none;
+         margin: 0;
+         padding: 0;
+         gap: var(--space-24);
+        }
+
+        .nav__link {
+         color: var(--color-text-secondary);
+         text-decoration: none;
+         font-weight: var(--font-weight-medium);
+         padding: var(--space-8) var(--space-12);
+         border-radius: var(--radius-base);
+         transition: color 0.2s, background-color 0.2s;
+        }
+
+        .nav__link:hover, .nav__link.active {
+         color: var(--color-primary);
+         background-color: var(--color-secondary);
+        }
+
+        .nav__toggle {
+         display: none;
+         cursor: pointer;
+         background: none;
+         border: none;
+        }
+
+        .nav__toggle-bar {
+         display: block;
+         width: 25px;
+         height: 3px;
+         margin: 5px auto;
+         background-color: var(--color-text);
+         transition: all 0.3s ease-in-out;
+        }
+        
+        /* Hero Section */
+        .hero {
+         text-align: center;
+         padding: var(--space-32) 0;
+         background-color: var(--color-secondary);
+        }
+
+        .hero__title {
+         font-size: var(--font-size-4xl);
+         margin-bottom: var(--space-16);
+        }
+
+        .hero__subtitle {
+         font-size: var(--font-size-xl);
+         color: var(--color-text-secondary);
+         margin-bottom: var(--space-16);
+        }
+
+        .hero__description {
+         max-width: 700px;
+         margin: 0 auto var(--space-24);
+         color: var(--color-text-secondary);
+        }
+
+        .btn {
+         display: inline-block;
+         padding: var(--space-12) var(--space-24);
+         border-radius: var(--radius-base);
+         text-decoration: none;
+         font-weight: var(--font-weight-medium);
+         transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .btn--primary {
+         background-color: var(--color-primary);
+         color: var(--color-btn-primary-text);
+        }
+        .btn--primary:hover {
+         background-color: var(--color-primary-hover);
+         transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        .main {
+         padding: var(--space-32) 0;
+        }
+
+        .tool-section {
+         padding: var(--space-32) 0;
+         border-bottom: 1px solid var(--color-border);
+        }
+        
+        .tool-section:last-of-type {
+            border-bottom: none;
+        }
+
+        .tool-card {
+         background-color: var(--color-surface);
+         border: 1px solid var(--color-card-border);
+         border-radius: var(--radius-lg);
+         box-shadow: var(--shadow-md);
+         margin-bottom: var(--space-32);
+        }
+
+        .tool-card__header {
+         padding: var(--space-24);
+         border-bottom: 1px solid var(--color-card-border-inner);
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         flex-wrap: wrap;
+         gap: var(--space-16);
+        }
+
+        .tool-card__title {
+         margin: 0;
+        }
+        
+        .status {
+          padding: var(--space-4) var(--space-12);
+          border-radius: var(--radius-full);
+          font-size: var(--font-size-sm);
+          font-weight: var(--font-weight-medium);
+        }
+        .status--info { background-color: rgba(var(--color-info-rgb), 0.1); color: var(--color-info); }
+        .status--warning { background-color: rgba(var(--color-warning-rgb), 0.1); color: var(--color-warning); }
+        .status--success { background-color: rgba(var(--color-success-rgb), 0.1); color: var(--color-success); }
+        .status--error { background-color: rgba(var(--color-error-rgb), 0.1); color: var(--color-error); }
+
+        .tool-card__content {
+         padding: var(--space-24);
+        }
+        
+        .tool-section__overview h3 {
+            margin-bottom: var(--space-16);
+        }
+        
+        .tool-section__overview p {
+            margin-bottom: 0;
+        }
+
+        .usage-section {
+         margin-top: var(--space-24);
+         display: grid;
+         gap: var(--space-16);
+        }
+
+        .usage-card {
+         border: 1px solid var(--color-card-border-inner);
+         border-radius: var(--radius-md);
+         overflow: hidden;
+        }
+        
+        .usage-card__toggle {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            background-color: var(--color-secondary);
+            border: none;
+            padding: var(--space-16);
+            text-align: left;
+            cursor: pointer;
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-medium);
+            color: var(--color-text);
+        }
+
+        .usage-card__toggle .toggle-icon {
+            font-size: 1.5em;
+            transition: transform 0.3s;
+        }
+        
+        .usage-card__toggle[aria-expanded="true"] .toggle-icon {
+            transform: rotate(45deg);
+        }
+
+        .usage-card__content {
+         max-height: 0;
+         overflow: hidden;
+         transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+         padding: 0 var(--space-20);
+        }
+
+        .usage-card__content.active {
+         max-height: 1000px; /* 충분한 높이 */
+         padding: var(--space-20);
+        }
+        
+        .usage-card__content ul {
+            padding-left: var(--space-20);
+            margin: 0;
+        }
+
+        .usage-card__content li {
+            margin-bottom: var(--space-8);
+        }
+        .usage-card__content li:last-child {
+            margin-bottom: 0;
+        }
+        
+        /* Conclusion Section */
+        .conclusion {
+            padding: var(--space-32) 0;
+            text-align: center;
+            background-color: var(--color-secondary);
+        }
+        
+        .conclusion__content h2 {
+            margin-bottom: var(--space-16);
+        }
+        
+        /* Footer */
+        .footer {
+         text-align: center;
+         padding: var(--space-24);
+         margin-top: var(--space-32);
+         background-color: var(--color-text);
+         color: var(--color-background);
+        }
+
+        .footer p {
+         margin: 0;
+         opacity: 0.7;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+         position: fixed;
+         bottom: 20px;
+         right: 20px;
+         background-color: var(--color-primary);
+         color: white;
+         border: none;
+         border-radius: 50%;
+         width: 50px;
+         height: 50px;
+         font-size: 24px;
+         cursor: pointer;
+         display: none; /* 기본적으로 숨김 */
+         z-index: 1000;
+         opacity: 0;
+         transition: opacity 0.3s, visibility 0.3s;
+         visibility: hidden;
+        }
+        .back-to-top.visible {
+            display: block;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+         .nav__menu {
+           display: none;
+           flex-direction: column;
+           position: absolute;
+           top: 70px;
+           left: 0;
+           width: 100%;
+           background-color: var(--color-surface);
+           border-top: 1px solid var(--color-border);
+         }
+         
+         .nav__menu.active {
+             display: flex;
+         }
+
+         .nav__list {
+           flex-direction: column;
+           width: 100%;
+           text-align: center;
+           gap: 0;
+         }
+
+         .nav__link {
+           display: block;
+           padding: var(--space-16);
+           border-bottom: 1px solid var(--color-border);
+         }
+         
+         .nav__link:hover, .nav__link.active {
+             background-color: var(--color-secondary);
+         }
+
+         .nav__toggle {
+           display: block;
+         }
+         
+         .nav__toggle.active .nav__toggle-bar:nth-child(2) {
+             opacity: 0;
+         }
+         .nav__toggle.active .nav__toggle-bar:nth-child(1) {
+             transform: translateY(8px) rotate(45deg);
+         }
+         .nav__toggle.active .nav__toggle-bar:nth-child(3) {
+             transform: translateY(-8px) rotate(-45deg);
+         }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <div class="nav__brand">
+                <h3>AI 교육 가이드</h3>
+            </div>
+            <div class="nav__menu" id="navMenu">
+                <ul class="nav__list">
+                    <li><a href="#home" class="nav__link">홈</a></li>
+                    <li><a href="#padlet" class="nav__link">페들렛</a></li>
+                    <li><a href="#release" class="nav__link">릴리스</a></li>
+                    <li><a href="#wrtn" class="nav__link">뤼튼</a></li>
+                    <li><a href="#vrew" class="nav__link">브류</a></li>
+                    <li><a href="#suno" class="nav__link">수노AI</a></li>
+                </ul>
+            </div>
+            <button class="nav__toggle" id="navToggle" aria-label="메뉴 토글">
+                <span class="nav__toggle-bar"></span>
+                <span class="nav__toggle-bar"></span>
+                <span class="nav__toggle-bar"></span>
+            </button>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero__content">
+                <h1 class="hero__title">교육용 AI 도구 종합 가이드</h1>
+                <p class="hero__subtitle">페들렛, 릴리스, 뤼튼, 브류, 수노AI</p>
+                <p class="hero__description">
+                    교육 현장에서 활용할 수 있는 5가지 주요 AI 도구들의 기능과 교육적 활용 방안을
+                    교사 업무와 학생 수업으로 구분하여 정리했습니다.
+                </p>
+                <a href="#padlet" class="btn btn--primary hero__cta">도구 살펴보기</a>
+            </div>
+        </div>
+    </section>
+
+    <main class="main container">
+        <section id="padlet" class="tool-section">
+            <div class="tool-card">
+                <div class="tool-card__header">
+                    <h2 class="tool-card__title">페들렛(Padlet)</h2>
+                    <span class="status status--info">온라인 협업 도구</span>
+                </div>
+                <div class="tool-card__content">
+                    <div class="tool-section__overview">
+                        <h3>주요 기능</h3>
+                        <p>페들렛은 온라인상의 포스트잇 기능을 하는 협업 도구로, 하나의 작업공간에 많은 사람들이 동시에 들어와서 접착식 메모지를 붙여 놓는 작업이 가능한 웹 애플리케이션입니다. 텍스트, 이미지, 동영상, 링크 등 다양한 형태의 콘텐츠를 게시판에 업로드할 수 있으며, 실시간으로 소통하고 반응할 수 있습니다.</p>
+                    </div>
+                    <div class="usage-section">
+                        <div class="usage-card">
+                            <button class="usage-card__toggle" data-target="padlet-teacher">
+                                <h4>교사 업무 활용</h4>
+                                <span class="toggle-icon">+</span>
+                            </button>
+                            <div class="usage-card__content" id="padlet-teacher">
+                                <ul>
+                                    <li>수업 자료 관리: 영어과 공지사항 게시판, 학습자료 모음 게시판으로 활용하여 교사들과 공유하는 파일들을 업로드할 수 있습니다</li>
+                                    <li>교과세특 작성: 학생 결과물을 업로드하여 쉽게 관리하고, 내보내기 메뉴를 활용하여 교과세특 작성 시 활용할 수 있습니다</li>
+                                    <li>학생 평가 관리: 수행결과물 채점 및 공유, 학생 우수결과물(작품) 모음 담벼락을 만들어 관리할 수 있습니다</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="usage-card">
+                            <button class="usage-card__toggle" data-target="padlet-student">
+                                <h4>학생 수업 활용</h4>
+                                <span class="toggle-icon">+</span>
+                            </button>
+                            <div class="usage-card__content" id="padlet-student">
+                                <ul>
+                                    <li>브레인스토밍 활동: 캔버스나 담벼락 템플릿을 사용하여 팀원들이 함께 아이디어를 수집하고 정리할 수 있습니다</li>
+                                    <li>토론 수업: 학생들이 자신의 의견을 자유롭게 게시판에 올리고, 다른 학생들과 상호작용할 수 있습니다</li>
+                                    <li>창의적 체험활동: 원격수업 기간에 창의적 체험활동 행사 진행 및 학생 발표 시각자료로 활용할 수 있습니다</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="release" class="tool-section">
+            <div class="tool-card">
+                <div class="tool-card__header">
+                    <h2 class="tool-card__title">릴리스(Release)</h2>
+                    <span class="status status--warning">영상 요약 AI 서비스</span>
+                </div>
+                <div class="tool-card__content">
+                    <div class="tool-section__overview">
+                        <h3>주요 기능</h3>
+                        <p>릴리스 AI는 유튜브 영상이나 다른 디지털 콘텐츠를 요약해주는 인공지능 기반 서비스입니다. 유튜브 영상 링크를 입력하거나 PDF, 웹페이지 URL 등을 제공하여 해당 콘텐츠의 요약본을 얻을 수 있으며, 스크립트 추출, 요약 노트 생성, 타임스탬프, 블로그글, 채팅 Q&A 등 다양한 결과물을 제공합니다.</p>
+                    </div>
+                    <div class="usage-section">
+                        <div class="usage-card">
+                            <button class="usage-card__toggle" data-target="release-teacher">
+                                <h4>교사 업무 활용</h4>
+                                <span class="toggle-icon">+</span>
+                            </button>
+                            <div class="usage-card__content" id="release-teacher">
+                                <ul>
+                                    <li>연구 자료 수집: 여러 영상의 내용을 종합하고자 할 때 유용하며, 영상의 구간별 주제를 확인하여 특정 부분만 상세 내용을 확인할 수 있습니다</li>
+                                    <li>수업 준비: 긴 강의 영상이나 교육 콘텐츠를 빠르게 요약하여 핵심 내용을 파악하고 수업 자료로 활용할 수 있습니다</li>
+                                    <li>해외 자료 활용: 해외 유튜브 영상을 한글로 요약하여 언어 장벽 없이 다양한 콘텐츠를 교육에 활용할 수 있습니다</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="usage-card">
+                            <button class="usage-card__toggle" data-target="release-student">
+                                <h4>학생 수업 활용</h4>
+                                <span class="toggle-icon">+</span>
+                            </button>
+                            <div class="usage-card__content" id="release-student">
+                                <ul>
+                                    <li>예습 및 복습: 수업 관련 영상을 미리 요약하여 예습 자료로 활용하거나, 복습 시 핵심 내용을 빠르게 파악할 수 있습니다</li>
+                                    <li>연구 프로젝트: 학생들이 연구 주제와 관련된 영상 자료를 효율적으로 분석하고 정리할 수 있습니다</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="wrtn" class="tool-section">
+            <div class="tool-card">
+                <div class="tool-card__header">
+                    <h2 class="tool-card__title">뤼튼(WRTN)</h2>
+                    <span class="status status--success">종합 AI 플랫폼</span>
+                </div>
+                <div class="tool-card__content">
+                    <div class="tool-section__overview">
+                        <h3>주요 기능</h3>
+                        <p>뤼튼은 AI 글쓰기, AI 이미지 생성 등 전세계 최신 AI를 무료로 제공하는 종합 AI 플랫폼입니다. 2025년 3.0 업데이트를 통해 사용자가 선호하는 AI의 말투와 채팅 내용을 기억하는 메모리 기능과 검색 증강 생성(RAG)을 결합한 'AI 서포터' 기능을 제공합니다.</p>
+                    </div>
+                    <div class="usage-section">
+                        <div class="usage-card">
+                            <button class="usage-card__toggle" data-target="wrtn-teacher">
+                                <h4>교사 업무 활용</h4>
+                                <span class="toggle-icon">+</span>
+                            </button>
+                            <div class="usage-card__content" id="wrtn-teacher">
+                                <ul>
+                                    <li>교육 자료 제작: AI 탐지 방어 기능을 통해 자연스러운 문맥의 교육 자료를 작성하고, 블로그, 레포트 등 다양한 형태의 교육 콘텐츠를 생성할 수 있습니다</li>
+                                    <li>이미지 생성: 저작권 걱정 없이 교육용 이미지를 직접 생성하여 수업 자료에 활용할 수 있습니다</li>
+                                    <li>AI 리터러시 교육: 뤼튼 AI 시범학교 및 선도교사단을 통해 생성 AI로 수업 혁신을 선도하고 새로운 교육 모델을 구축할 수 있습니다</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="usage-card">
+                            <button class="usage-card__toggle" data-target="wrtn-student">
+                                <h4>학생 수업 활용</h4>
+                                <span class="toggle-icon">+</span>
+                            </button>
+                            <div class="usage-card__content" id="wrtn-student">
+                                <ul>
+                                    <li>창의적 학습: 학생들이 캐릭터 생성 및 일상 대화를 통해 AI와 소통하며 창의적 사고를 기를 수 있습니다</li>
+                                    <li>과제 수행: AI 과제 업무 기능을 통해 학생들이 다양한 주제의 글쓰기와 프로젝트를 수행할 수 있습니다</li>
+                                    <li>블로그 작성: 고품질의 블로그 포스팅을 자동으로 완성하여 학생들의 글쓰기 능력을 향상시킬 수 있습니다</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="vrew" class="tool-section">
+            <div class="tool-card">
+                <div class="tool-card__header">
+                    <h2 class="tool-card__title">브류(Vrew)</h2>
+                    <span class="status status--error">AI 영상 편집 및 자막 생성</span>
+                </div>
+                <div class="tool-card__content">
+                    <div class="tool-section__overview">
+                        <h3>주요 기능</h3>
+                        <p>브류는 인공지능을 활용해 영상의 음성을 텍스트로 변환하고 자동으로 자막을 생성해주는 AI 소프트웨어입니다. 자막 편집, 자막 스타일링, 자막 싱크 맞추기, 다양한 언어 지원 등의 기능을 제공하며, AI 이미지 생성과 텍스트 기반 비디오 제작 기능도 갖추고 있습니다.</p>
+                    </div>
+                    <div class="usage-section">
+                        <div class="usage-card">
+                            <button class="usage-card__toggle" data-target="vrew-teacher">
+                                <h4>교사 업무 활용</h4>
+                                <span class="toggle-icon">+</span>
+                            </button>
+                            <div class="usage-card__content" id="vrew-teacher">
+                                <ul>
+                                    <li>수업 영상 제작: AI가 편집한 영상의 내용을 자동으로 분석해 적절한 이미지와 썸네일 문구를 골라주어 교육 영상 제작 효율을 높일 수 있습니다</li>
+                                    <li>자막 작업: 1분 영상 기준 10-15초 만에 자동으로 자막을 생성하여 교육 콘텐츠 제작 시간을 대폭 단축할 수 있습니다</li>
+                                    <li>플립드 러닝: 브루로 사전학습 영상을 제작하여 플립드 러닝 수업을 설계할 수 있습니다</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="usage-card">
+                            <button class="usage-card__toggle" data-target="vrew-student">
+                                <h4>학생 수업 활용</h4>
+                                <span class="toggle-icon">+</span>
+                            </button>
+                            <div class="usage-card__content" id="vrew-student">
+                                <ul>
+                                    <li>영상 제작 학습: 학생들이 직접 AI 캐릭터를 만들고 입술 움직이는 캐릭터를 화면에 넣어 창의적인 영상을 제작할 수 있습니다</li>
+                                    <li>발표 자료: 학생들의 발표나 프로젝트에서 전문적인 영상 편집 없이도 자막이 포함된 고품질 영상을 제작할 수 있습니다</li>
+                                    <li>미디어 리터러시: 시니어 교육처럼 AI 학습과 영상 편집을 동시에 학습하여 디지털 리터러시를 향상시킬 수 있습니다</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="suno" class="tool-section">
+            <div class="tool-card">
+                <div class="tool-card__header">
+                    <h2 class="tool-card__title">수노AI(Suno AI)</h2>
+                    <span class="status status--info">AI 음악 생성 플랫폼</span>
+                </div>
+                <div class="tool-card__content">
+                    <div class="tool-section__overview">
+                        <h3>주요 기능</h3>
+                        <p>수노AI는 텍스트 프롬프트를 활용해 다양한 장르, 스타일의 음악을 생성하고, 가사도 함께 입력되어 완벽한 노래를 만들 수 있는 AI 음악 생성 플랫폼입니다. 음악의 장르, 분위기, 길이 등을 설정해 원하는 스타일의 음악을 쉽게 만들어낼 수 있으며, 하루에 무료로 10곡 생성이 가능합니다.</p>
+                    </div>
+                    <div class="usage-section">
+                        <div class="usage-card">
+                            <button class="usage-card__toggle" data-target="suno-teacher">
+                                <h4>교사 업무 활용</h4>
+                                <span class="toggle-icon">+</span>
+                            </button>
+                            <div class="usage-card__content" id="suno-teacher">
+                                <ul>
+                                    <li>교육용 음악 제작: 수업 주제에 맞는 배경음악이나 교육용 노래를 직접 제작하여 수업에 활용할 수 있습니다</li>
+                                    <li>창의성 교육: 교사가 숙고하여 과제를 만들고 학생들의 학습과정을 면밀하게 관찰하면서 창의성을 기르는 수업을 진행할 수 있습니다</li>
+                                    <li>음악 교육 도구: 음악적 지식이나 기능이 없는 교사도 음악 창작을 통해 학생들에게 음악 교육을 제공할 수 있습니다</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="usage-card">
+                            <button class="usage-card__toggle" data-target="suno-student">
+                                <h4>학생 수업 활용</h4>
+                                <span class="toggle-icon">+</span>
+                            </button>
+                            <div class="usage-card__content" id="suno-student">
+                                <ul>
+                                    <li>음악 창작 체험: 학생들이 직접 가사를 작성하고 AI를 통해 멜로디를 제작하여 창의적인 음악 활동을 경험할 수 있습니다</li>
+                                    <li>프로젝트 학습: 유치원에서 아이들의 생각으로 노래 가사를 만들고, 수노AI로 멜로디를 제작한 후 메타버스 공간에 전시하는 통합 프로젝트를 진행할 수 있습니다</li>
+                                    <li>음악적 자신감 향상: 음악적 지식이나 기능이 없는 학생도 음악 창작을 통해 호기심과 자신감을 갖게 할 수 있습니다</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="conclusion">
+            <div class="container">
+                <div class="conclusion__content">
+                    <h2>마무리</h2>
+                    <p>이 5가지 AI 도구들은 각각 다른 영역에서 교육의 질을 향상시킬 수 있는 강력한 기능들을 제공합니다. 페들렛은 협업과 소통을, 릴리스는 정보 습득의 효율성을, 뤼튼은 종합적인 AI 활용을, 브류는 영상 제작의 접근성을, 수노AI는 음악 창작의 민주화를 실현합니다. 교육자들이 이러한 도구들을 적절히 조합하여 활용한다면, 학생들에게 더욱 창의적이고 효과적인 학습 경험을 제공할 수 있을 것입니다.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <button class="back-to-top" id="backToTop">↑</button>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 하는교사.</p>
+        </div>
+    </footer>
+
+    <script>
+      // JavaScript 코드가 여기에 들어갑니다.
+      document.addEventListener('DOMContentLoaded', () => {
+        const navToggle = document.getElementById('navToggle');
+        const navMenu = document.getElementById('navMenu');
+        const navLinks = document.querySelectorAll('.nav__link');
+        const usageToggles = document.querySelectorAll('.usage-card__toggle');
+        const backToTopBtn = document.getElementById('backToTop');
+        const header = document.querySelector('.header');
+        const headerHeight = header.offsetHeight;
+        
+        // 모바일 메뉴 토글
+        navToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            navToggle.classList.toggle('active');
+        });
+
+        // 사용법 섹션 토글 (아코디언 메뉴)
+        usageToggles.forEach(toggle => {
+            toggle.setAttribute('aria-expanded', 'false');
+            toggle.addEventListener('click', () => {
+                const content = toggle.nextElementSibling;
+                const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+
+                toggle.setAttribute('aria-expanded', !isExpanded);
+                content.classList.toggle('active');
+                
+                // 아이콘 변경
+                const icon = toggle.querySelector('.toggle-icon');
+                if (!isExpanded) {
+                    icon.textContent = '−';
+                } else {
+                    icon.textContent = '+';
+                }
+            });
+        });
+
+        // 스크롤 이벤트 처리
+        window.addEventListener('scroll', () => {
+            // 맨 위로 가기 버튼 표시/숨김
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+
+            // 현재 스크롤 위치에 따라 네비게이션 링크 활성화
+            let currentSection = '';
+            const sections = document.querySelectorAll('section[id]');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - headerHeight - 20;
+                if (window.scrollY >= sectionTop) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === currentSection) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // 맨 위로 가기 버튼 클릭 이벤트
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        // 네비게이션 링크 및 CTA 버튼 부드러운 스크롤
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+
+                if (targetElement) {
+                   const targetPosition = targetElement.offsetTop - headerHeight;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                    // 모바일 메뉴 닫기
+                    if (navMenu.classList.contains('active')) {
+                        navMenu.classList.remove('active');
+                        navToggle.classList.remove('active');
+                    }
+                }
+            });
+        });
+      });
+    </script>
+</body>
+</html>
